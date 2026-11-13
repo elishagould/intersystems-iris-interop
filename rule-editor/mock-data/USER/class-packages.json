@@ -1,0 +1,6 @@
+{
+    "classPackages": [
+        "RouterRule",
+        "RouterRule.TestRouterRules"
+    ]
+}

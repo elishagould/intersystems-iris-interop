@@ -1,0 +1,39 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Rule Editor V2</title>
+  <link rel="stylesheet" href="./packages/basic-builder/index.css">
+  <link rel="stylesheet" href="./packages/editor/index.css">
+  <link rel="stylesheet" href="./node_modules/@intersystems/iris-auth/index.css">
+  <link rel="stylesheet" href="./preview.css">
+</head>
+<body>
+  <header class="preview-header">
+    <h1>Rule Editor <span>V2</span></h1>
+    <div class="preview-identity" aria-label="Current environment and rule">
+      <div class="preview-identity-item"><span>Environment</span><strong id="api-environment"></strong></div>
+      <div class="preview-identity-item"><span>Namespace</span><strong id="api-namespace">API</strong></div>
+      <div class="preview-identity-item preview-user"><span>User</span><div id="authentication-status" aria-label="Account"></div></div>
+    </div>
+  </header>
+  <div class="preview-commandbar" role="group" aria-label="Rule commands">
+    <div class="preview-current-rule"><span>Rule</span><strong id="current-rule-name">No rule selected</strong></div>
+    <div class="preview-primary-actions">
+      <button id="new-business-rule" class="editor-new-command" type="button" disabled>New</button>
+      <label class="business-rules-control">
+        <span class="visually-hidden">Business rule</span>
+        <input id="business-rule" list="business-rule-names" disabled aria-label="Business rule" placeholder="Select a business rule" autocomplete="off" spellcheck="false">
+      </label>
+      <datalist id="business-rule-names"></datalist>
+      <button id="open-business-rule" class="editor-new-command" type="button" disabled>Open</button>
+      <div id="save-actions" aria-label="Save commands"></div>
+    </div>
+  </div>
+  <p id="status" role="status">Loading business rules...</p>
+  <main id="preview" aria-label="Rule builder preview" aria-busy="true"></main>
+  <script src="./node_modules/lucide/dist/umd/lucide.min.js"></script>
+  <script type="module" src="./app.js"></script>
+</body>
+</html>

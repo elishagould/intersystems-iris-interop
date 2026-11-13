@@ -1,0 +1,13 @@
+.iris-auth-account { display: flex; align-items: center; flex-wrap: wrap; gap: 8px; max-width: 100%; color: #53695e; font: 12px "Trebuchet MS", sans-serif; }
+.iris-auth-account > span { overflow-wrap: anywhere; }
+.iris-auth-account button, .iris-auth-actions button { min-height: 32px; padding: 5px 12px; border: 1px solid #bac9c0; border-radius: 4px; background: white; color: #285d46; font: 13px "Trebuchet MS", sans-serif; cursor: pointer; }
+.iris-auth-dialog { width: min(390px, calc(100vw - 32px)); max-height: calc(100dvh - 32px); padding: 22px; border: 1px solid #8da597; border-radius: 6px; background: white; color: #263d33; }
+.iris-auth-dialog::backdrop { background: #182b2455; }
+.iris-auth-dialog form { display: flex; flex-direction: column; gap: 16px; }
+.iris-auth-dialog h2 { margin: 0; font: 600 19px "Trebuchet MS", sans-serif; }
+.iris-auth-dialog label { display: flex; flex-direction: column; gap: 6px; min-width: 0; font: 13px "Trebuchet MS", sans-serif; }
+.iris-auth-dialog input { box-sizing: border-box; width: 100%; min-width: 0; padding: 8px 10px; border: 1px solid #bac9c0; border-radius: 4px; font: 15px "Trebuchet MS", sans-serif; }
+.iris-auth-dialog input:focus, .iris-auth-account button:focus-visible, .iris-auth-actions button:focus-visible { outline: 2px solid #286650; outline-offset: 1px; }
+.iris-auth-actions { display: flex; justify-content: flex-end; gap: 8px; }
+.iris-auth-error { margin: 0; color: #a4392e; font: 13px "Trebuchet MS", sans-serif; }
+.iris-auth-error[hidden] { display: none; }

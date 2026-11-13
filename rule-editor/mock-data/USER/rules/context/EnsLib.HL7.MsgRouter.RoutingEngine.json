@@ -1,0 +1,192 @@
+{
+    "inputSpecs": [
+        {
+            "name": "AckType",
+            "irisType": "%Library.String"
+        },
+        {
+            "name": "ActOnTransformError",
+            "irisType": "%Library.Boolean"
+        },
+        {
+            "name": "ActOnValidationError",
+            "irisType": "%Library.Boolean"
+        },
+        {
+            "name": "ActionTargets",
+            "irisType": "%Library.String"
+        },
+        {
+            "name": "Adapter",
+            "irisType": "Ens.Adapter"
+        },
+        {
+            "name": "AddNackERR",
+            "irisType": "%Library.Boolean"
+        },
+        {
+            "name": "AlertGroups",
+            "irisType": "%Library.String"
+        },
+        {
+            "name": "AlertOnBadMessage",
+            "irisType": "%Library.Boolean"
+        },
+        {
+            "name": "AlertOnError",
+            "irisType": "%Library.Boolean"
+        },
+        {
+            "name": "AlertRetryGracePeriod",
+            "irisType": "%Library.Numeric"
+        },
+        {
+            "name": "BadMessageHandler",
+            "irisType": "%Library.String"
+        },
+        {
+            "name": "BusinessPartner",
+            "irisType": "%Library.String"
+        },
+        {
+            "name": "BusinessRuleName",
+            "irisType": "%Library.String"
+        },
+        {
+            "name": "DocName",
+            "irisType": "%Library.String"
+        },
+        {
+            "name": "DocType",
+            "irisType": "%Library.String"
+        },
+        {
+            "name": "Document",
+            "irisType": "%Library.RegisteredObject"
+        },
+        {
+            "name": "FMGCalculation",
+            "irisType": "%Library.String"
+        },
+        {
+            "name": "FMGCompletionHosts",
+            "irisType": "%Library.String"
+        },
+        {
+            "name": "FailureTimeout",
+            "irisType": "%Library.Numeric"
+        },
+        {
+            "name": "ForceSyncSend",
+            "irisType": "%Library.Boolean"
+        },
+        {
+            "name": "ForwardGeneratedResponseToTargets",
+            "irisType": "%Library.Boolean"
+        },
+        {
+            "name": "InactivityTimeout",
+            "irisType": "%Library.Numeric"
+        },
+        {
+            "name": "LocalFacilityApplication",
+            "irisType": "%Library.String"
+        },
+        {
+            "name": "MsgClass",
+            "irisType": "%Library.String"
+        },
+        {
+            "name": "NackCode",
+            "irisType": "%Library.String"
+        },
+        {
+            "name": "NackOnTimeout",
+            "irisType": "%Library.Boolean"
+        },
+        {
+            "name": "QueueCountAlert",
+            "irisType": "%Library.Numeric"
+        },
+        {
+            "name": "QueueWaitAlert",
+            "irisType": "%Library.Numeric"
+        },
+        {
+            "name": "ReplyCodeActions",
+            "irisType": "%Library.String"
+        },
+        {
+            "name": "RequestHdrData",
+            "irisType": "%Library.String"
+        },
+        {
+            "name": "ResponseFrom",
+            "irisType": "%Library.String"
+        },
+        {
+            "name": "ResponseTargetConfigNames",
+            "irisType": "%Library.String"
+        },
+        {
+            "name": "ResponseTimeout",
+            "irisType": "%Library.Numeric"
+        },
+        {
+            "name": "Retry",
+            "irisType": "%Library.Boolean"
+        },
+        {
+            "name": "RetryInterval",
+            "irisType": "%Library.Numeric"
+        },
+        {
+            "name": "RuleActionReason",
+            "irisType": "%Library.String"
+        },
+        {
+            "name": "RuleActionUserData",
+            "irisType": "%Library.String"
+        },
+        {
+            "name": "RuleActionUserDataArray",
+            "irisType": "%Library.String"
+        },
+        {
+            "name": "RuleLogging",
+            "irisType": "%Library.String"
+        },
+        {
+            "name": "RuleReason",
+            "irisType": "%Library.String"
+        },
+        {
+            "name": "RuleUserData",
+            "irisType": "%Library.String"
+        },
+        {
+            "name": "Segment",
+            "irisType": "EnsLib.HL7.Segment"
+        },
+        {
+            "name": "Source",
+            "irisType": "%Library.String"
+        },
+        {
+            "name": "SuspendMessage",
+            "irisType": "%Library.Boolean"
+        },
+        {
+            "name": "ThrottleDelay",
+            "irisType": "%Library.Numeric"
+        },
+        {
+            "name": "Validation",
+            "irisType": "%Library.String"
+        },
+        {
+            "name": "aRespFrom",
+            "irisType": "%Library.String"
+        }
+    ]
+}

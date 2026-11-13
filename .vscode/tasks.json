@@ -1,0 +1,37 @@
+{
+  "version": "2.0.0",
+  "tasks": [
+    {
+      "label": "Install Dependencies",
+      "type": "shell",
+      "command": "npm",
+      "args": ["ci"],
+      "options": { "cwd": "${workspaceFolder}/rule-editor" },
+      "problemMatcher": []
+    },
+    {
+      "label": "Build Static UI",
+      "type": "npm",
+      "script": "build",
+      "path": "rule-editor",
+      "group": { "kind": "build", "isDefault": true },
+      "problemMatcher": []
+    },
+    {
+      "label": "Test",
+      "type": "npm",
+      "script": "test",
+      "path": "rule-editor",
+      "group": { "kind": "test", "isDefault": true },
+      "problemMatcher": []
+    },
+    {
+      "label": "Package for IRIS",
+      "type": "npm",
+      "script": "package:iris",
+      "path": "rule-editor",
+      "group": "build",
+      "problemMatcher": []
+    }
+  ]
+}

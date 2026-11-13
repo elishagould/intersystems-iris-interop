@@ -1,0 +1,13 @@
+{
+  "name": "@intersystems/iris-auth",
+  "version": "0.1.0",
+  "type": "module",
+  "description": "Reusable IRIS bearer-token and session authenticator for browser applications",
+  "exports": {
+    ".": "./index.js",
+    "./login": "./login.js",
+    "./index.css": "./index.css"
+  },
+  "files": ["index.js", "login.js", "index.css"],
+  "engines": { "node": ">=20" }
+}

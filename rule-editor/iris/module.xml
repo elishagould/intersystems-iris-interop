@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Export generator="IRIS" version="25">
+  <Document name="iris-interop-tools.ZPM">
+    <Module>
+      <Name>iris-interop-tools</Name>
+      <Version>0.1.0</Version>
+      <Description>Alternative browser UI tools for InterSystems IRIS interoperability</Description>
+      <Packaging>module</Packaging>
+      <SourcesRoot>src</SourcesRoot>
+      <Resource Name="InteropTools.Installer.CLS" />
+      <CSPApplication Url="/ui/interop/rule-editor"
+        SourcePath="/web"
+        DeployPath="${cspdir}ui/interop/rule-editor"
+        ServeFiles="1" Recurse="1"
+        CookiePath="/ui/interop/rule-editor" UseCookies="2"
+        PasswordAuthEnabled="1" UnauthenticatedEnabled="0" />
+    </Module>
+  </Document>
+</Export>

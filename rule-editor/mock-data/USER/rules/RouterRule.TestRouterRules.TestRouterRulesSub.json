@@ -1,0 +1,28 @@
+{
+    "type": "ruleDefinition",
+    "Timestamp": "2026-11-12T08:46:42.965099Z",
+    "ReadOnly": 0,
+    "alias": "",
+    "description": "",
+    "context": "EnsLib.HL7.MsgRouter.RoutingEngine",
+    "production": "",
+    "ruleSets": [
+        {
+            "type": "ruleSet",
+            "name": "subRule",
+            "actions": [
+                {
+                    "type": "send",
+                    "transform": "",
+                    "target": "OperationOutbound"
+                }
+            ],
+            "effectiveBegin": "",
+            "effectiveEnd": ""
+        }
+    ],
+    "assistClass": "EnsLib.HL7.MsgRouter.RuleAssist",
+    "ruleType": "HL7 Message Routing Rule",
+    "contextEditable": false,
+    "_sourceControl": []
+}

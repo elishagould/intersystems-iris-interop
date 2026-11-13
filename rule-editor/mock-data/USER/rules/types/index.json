@@ -1,0 +1,12 @@
+[
+  {
+    "name": "EnsLib.HL7.MsgRouter.RuleAssist",
+    "contextClass": "EnsLib.HL7.MsgRouter.RoutingEngine",
+    "description": "HL7 Message Routing Rule"
+  },
+  {
+    "name": "EnsLib.HL7.MsgRouter.RuleAssistCompatible",
+    "contextClass": "EnsLib.HL7.MsgRouter.RoutingEngine",
+    "description": "HL7 Message Routing Rule (Compatible)"
+  }
+]

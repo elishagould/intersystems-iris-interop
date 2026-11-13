@@ -1,0 +1,177 @@
+{
+    "type": "ruleDefinition",
+    "Timestamp": "2026-11-12T11:32:15.006398Z",
+    "ReadOnly": 0,
+    "alias": "",
+    "description": "",
+    "context": "EnsLib.HL7.MsgRouter.RoutingEngine",
+    "production": "",
+    "ruleSets": [
+        {
+            "type": "ruleSet",
+            "name": "ruleset",
+            "actions": [
+                {
+                    "type": "rule",
+                    "name": "rule1",
+                    "constraints": [
+                        {
+                            "type": "constraint",
+                            "name": "docCategory",
+                            "value": "2.3.1"
+                        }
+                    ],
+                    "disabled": false,
+                    "constraint": "",
+                    "else": {
+                        "type": "else",
+                        "actions": [
+                            {
+                                "type": "return",
+                                "value": ""
+                            }
+                        ]
+                    },
+                    "conditions": [
+                        {
+                            "type": "condition",
+                            "then": {
+                                "type": "then",
+                                "actions": [
+                                    {
+                                        "type": "return",
+                                        "value": ""
+                                    },
+                                    {
+                                        "type": "trace",
+                                        "value": "\"whenTrace\""
+                                    },
+                                    {
+                                        "type": "comment",
+                                        "text": "\"whenComment\""
+                                    },
+                                    {
+                                        "type": "delete"
+                                    },
+                                    {
+                                        "type": "delegate",
+                                        "ruleName": "RouterRule.TestRouterRules.TestRouterRulesSub"
+                                    },
+                                    {
+                                        "type": "rule",
+                                        "name": "",
+                                        "disabled": false,
+                                        "constraint": "",
+                                        "conditions": [
+                                            {
+                                                "type": "condition",
+                                                "then": {
+                                                    "type": "then",
+                                                    "actions": [
+                                                        {
+                                                            "type": "return",
+                                                            "value": ""
+                                                        }
+                                                    ]
+                                                },
+                                                "if": {
+                                                    "value": "1"
+                                                }
+                                            }
+                                        ]
+                                    },
+                                    {
+                                        "type": "assign",
+                                        "property": "whenValue",
+                                        "value": "\"aString\""
+                                    },
+                                    {
+                                        "type": "return",
+                                        "value": ""
+                                    }
+                                ]
+                            },
+                            "if": {
+                                "value": "1"
+                            }
+                        },
+                        {
+                            "type": "condition",
+                            "then": {
+                                "type": "then",
+                                "actions": [
+                                    {
+                                        "type": "send",
+                                        "transform": "",
+                                        "target": "outbound"
+                                    },
+                                    {
+                                        "type": "return",
+                                        "value": ""
+                                    }
+                                ]
+                            },
+                            "if": {
+                                "value": "((HL7.{PV1:PatientClass}=\"O\")&&Exists(\"test\",HL7.{MSH:MessageType.TriggerEvent}))||1"
+                            }
+                        },
+                        {
+                            "type": "condition",
+                            "then": {
+                                "type": "then",
+                                "actions": [
+                                    {
+                                        "type": "return",
+                                        "value": ""
+                                    }
+                                ]
+                            },
+                            "if": {
+                                "value": "1"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "type": "trace",
+                    "value": "\"tracetest\""
+                },
+                {
+                    "type": "debug",
+                    "value": "\"debugstring\""
+                },
+                {
+                    "type": "comment",
+                    "text": "\"commentstring\""
+                },
+                {
+                    "type": "send",
+                    "transform": "Transform.hl7transform",
+                    "target": "outbound.service"
+                },
+                {
+                    "type": "delete"
+                },
+                {
+                    "type": "delegate",
+                    "ruleName": "RouterRule.TestRouterRules.TestRouterRulesSub"
+                },
+                {
+                    "type": "assign",
+                    "property": "aString",
+                    "value": "\"AAA\""
+                },
+                {
+                    "type": "return",
+                    "value": ""
+                }
+            ],
+            "effectiveBegin": "2000-01-01T00:00:00",
+            "effectiveEnd": ""
+        }
+    ],
+    "assistClass": "EnsLib.HL7.MsgRouter.RuleAssist",
+    "ruleType": "HL7 Message Routing Rule",
+    "contextEditable": false,
+    "_sourceControl": []
+}

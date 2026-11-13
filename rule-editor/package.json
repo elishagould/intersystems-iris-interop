@@ -1,0 +1,22 @@
+{
+  "name": "@intersystems/rule-editor-v2-builder",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "test": "node --test tests/*.test.mjs",
+    "start": "node preview.mjs",
+    "build": "node build.mjs",
+    "package:iris": "node package.mjs"
+  },
+  "engines": {
+    "node": ">=20"
+  },
+  "dependencies": {
+    "@intersystems/iris-auth": "file:../iris-auth",
+    "chevrotain": "^13.2.0",
+    "lucide": "^1.72.0"
+  },
+  "devDependencies": {
+    "fflate": "^0.8.3"
+  }
+}

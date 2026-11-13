@@ -1,0 +1,33 @@
+{
+    "constraintOptions": [
+        {
+            "name": "source",
+            "description": "Source",
+            "control": "select",
+            "configItem": 1
+        },
+        {
+            "name": "msgClass",
+            "description": "Message Class",
+            "control": "input"
+        },
+        {
+            "name": "docCategory",
+            "description": "Schema Category",
+            "control": "select",
+            "options": []
+        },
+        {
+            "name": "docName",
+            "description": "Document Name",
+            "control": "select multiple",
+            "options": []
+        },
+        {
+            "name": "docType",
+            "description": "Schema DocType",
+            "control": "select multiple",
+            "options": []
+        }
+    ]
+}

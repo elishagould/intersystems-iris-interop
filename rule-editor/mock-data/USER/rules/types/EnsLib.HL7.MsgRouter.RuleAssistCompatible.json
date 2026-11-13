@@ -1,0 +1,848 @@
+{
+    "type": "object",
+    "properties": {
+        "type": {
+            "const": "ruleDefinition"
+        },
+        "description": {
+            "type": "string"
+        },
+        "context": {
+            "type": "string",
+            "readOnly": 1
+        },
+        "assistClass": {
+            "type": "string"
+        },
+        "ruleType": {
+            "type": "string",
+            "readOnly": true
+        },
+        "ruleSets": {
+            "type": "array",
+            "items": {
+                "$ref": "#/definitions/ruleSet"
+            }
+        },
+        "production": {
+            "type": "string"
+        }
+    },
+    "definitions": {
+        "assign": {
+            "type": "object",
+            "properties": {
+                "property": {
+                    "type": "string"
+                },
+                "value": {
+                    "type": "string"
+                },
+                "valueObject": {
+                    "$ref": "#/definitions/valueObject"
+                },
+                "type": {
+                    "const": "assign"
+                }
+            }
+        },
+        "comment": {
+            "type": "object",
+            "properties": {
+                "text": {
+                    "type": "string"
+                },
+                "type": {
+                    "const": "comment"
+                }
+            }
+        },
+        "debug": {
+            "type": "object",
+            "properties": {
+                "value": {
+                    "type": "string"
+                },
+                "valueObject": {
+                    "$ref": "#/definitions/valueObject"
+                },
+                "type": {
+                    "const": "debug"
+                }
+            }
+        },
+        "return": {
+            "type": "object",
+            "properties": {
+                "type": {
+                    "const": "return"
+                }
+            }
+        },
+        "rule": {
+            "type": "object",
+            "properties": {
+                "type": {
+                    "const": "rule"
+                },
+                "name": {
+                    "type": "string"
+                },
+                "disabled": {
+                    "type": "boolean"
+                },
+                "conditions": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/condition"
+                    }
+                },
+                "else": {
+                    "$ref": "#/definitions/else"
+                },
+                "comments": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/comment"
+                    }
+                },
+                "constraints": {
+                    "type": "array"
+                }
+            },
+            "if": {
+                "properties": {
+                    "conditions": {
+                        "maxItems": 0
+                    }
+                }
+            },
+            "then": {
+                "not": {
+                    "required": [
+                        "else"
+                    ]
+                }
+            }
+        },
+        "trace": {
+            "type": "object",
+            "properties": {
+                "value": {
+                    "type": "string"
+                },
+                "valueObject": {
+                    "$ref": "#/definitions/valueObject"
+                },
+                "type": {
+                    "const": "trace"
+                }
+            }
+        },
+        "delegate": {
+            "type": "object",
+            "properties": {
+                "ruleName": {
+                    "type": "string"
+                },
+                "type": {
+                    "const": "delegate"
+                }
+            }
+        },
+        "delete": {
+            "type": "object",
+            "properties": {
+                "type": {
+                    "const": "delete"
+                }
+            }
+        },
+        "send": {
+            "type": "object",
+            "properties": {
+                "target": {
+                    "type": "string"
+                },
+                "transform": {
+                    "type": "string"
+                },
+                "type": {
+                    "const": "send"
+                }
+            }
+        },
+        "foreach": {
+            "type": "object",
+            "properties": {
+                "propertypath": {
+                    "type": "string"
+                },
+                "type": {
+                    "const": "foreach"
+                },
+                "else": {
+                    "type": "object",
+                    "properties": {
+                        "type": {
+                            "const": "else"
+                        },
+                        "actions": {
+                            "type": "array",
+                            "items": {
+                                "oneOf": [
+                                    {
+                                        "$ref": "#/definitions/assign"
+                                    },
+                                    {
+                                        "$ref": "#/definitions/comment"
+                                    },
+                                    {
+                                        "$ref": "#/definitions/debug"
+                                    },
+                                    {
+                                        "$ref": "#/definitions/return"
+                                    },
+                                    {
+                                        "$ref": "#/definitions/rule"
+                                    },
+                                    {
+                                        "$ref": "#/definitions/trace"
+                                    },
+                                    {
+                                        "$ref": "#/definitions/delegate"
+                                    },
+                                    {
+                                        "$ref": "#/definitions/delete"
+                                    },
+                                    {
+                                        "$ref": "#/definitions/send"
+                                    }
+                                ]
+                            }
+                        }
+                    }
+                },
+                "conditions": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/foreachCondition"
+                    }
+                }
+            },
+            "if": {
+                "properties": {
+                    "conditions": {
+                        "maxItems": 0
+                    }
+                }
+            },
+            "then": {
+                "not": {
+                    "required": [
+                        "else"
+                    ]
+                }
+            }
+        },
+        "valueObject": {
+            "type": "object",
+            "oneOf": [
+                {
+                    "properties": {
+                        "operator": {
+                            "type": "string",
+                            "enum": [
+                                {
+                                    "type": "operator",
+                                    "value": "&&"
+                                },
+                                {
+                                    "type": "operator",
+                                    "value": "||"
+                                },
+                                {
+                                    "type": "operator",
+                                    "value": "+"
+                                },
+                                {
+                                    "type": "operator",
+                                    "value": "-"
+                                },
+                                {
+                                    "type": "operator",
+                                    "value": "!"
+                                },
+                                {
+                                    "type": "operator",
+                                    "value": "*"
+                                },
+                                {
+                                    "type": "operator",
+                                    "value": "/"
+                                },
+                                {
+                                    "type": "operator",
+                                    "value": "!="
+                                },
+                                {
+                                    "type": "operator",
+                                    "value": "="
+                                },
+                                {
+                                    "type": "operator",
+                                    "value": ">="
+                                },
+                                {
+                                    "type": "operator",
+                                    "value": "<="
+                                },
+                                {
+                                    "type": "operator",
+                                    "value": ">"
+                                },
+                                {
+                                    "type": "operator",
+                                    "value": "<"
+                                },
+                                {
+                                    "type": "operator",
+                                    "value": "&"
+                                },
+                                {
+                                    "type": "operator",
+                                    "value": "["
+                                },
+                                {
+                                    "type": "operator",
+                                    "value": "_"
+                                },
+                                {
+                                    "type": "function",
+                                    "value": "Base64StreamToHL7",
+                                    "description": "Converts a stream holding the Base64 represetation of a\r\nPipe and Hat message into a HL7 message",
+                                    "parameters": [
+                                        {
+                                            "name": "base64",
+                                            "type": "%Library.Stream",
+                                            "optional": 0
+                                        }
+                                    ]
+                                },
+                                {
+                                    "type": "function",
+                                    "value": "Base64ToHL7",
+                                    "description": "Converts a string holding the Base64 representation of a\r\nPipe and Hat message into a HL7 message",
+                                    "parameters": [
+                                        {
+                                            "name": "base64",
+                                            "type": "%Library.String",
+                                            "optional": 0
+                                        }
+                                    ]
+                                },
+                                {
+                                    "type": "function",
+                                    "value": "DoesNotIntersectList",
+                                    "description": "Tests if the given source list, <var>value</var>, does not contain any item that is contained in the target list, <var>items</var>.\r\nSee IntersectsList() for description.",
+                                    "parameters": [
+                                        {
+                                            "name": "value",
+                                            "type": "%Library.String",
+                                            "optional": 0
+                                        },
+                                        {
+                                            "name": "items",
+                                            "type": "%Library.String",
+                                            "optional": 0
+                                        },
+                                        {
+                                            "name": "SourceListSeparator",
+                                            "type": "%Library.String",
+                                            "default": "\"><\"",
+                                            "optional": 1
+                                        },
+                                        {
+                                            "name": "TargetListSeparator",
+                                            "type": "%Library.String",
+                                            "default": "\"><\"",
+                                            "optional": 1
+                                        }
+                                    ]
+                                },
+                                {
+                                    "type": "function",
+                                    "value": "DoesNotMatch",
+                                    "description": "Tests if the given <var>value</var> matches the <var>pattern</var> given in the ? operator pattern syntax.",
+                                    "parameters": [
+                                        {
+                                            "name": "value",
+                                            "type": "%Library.String",
+                                            "optional": 0
+                                        },
+                                        {
+                                            "name": "pattern",
+                                            "type": "%Library.String",
+                                            "optional": 0
+                                        }
+                                    ]
+                                },
+                                {
+                                    "type": "function",
+                                    "value": "DoesNotStartWith",
+                                    "description": "Tests if the given <var>value</var> does not start with the string in <var>start</var>.",
+                                    "parameters": [
+                                        {
+                                            "name": "value",
+                                            "type": "%Library.String",
+                                            "optional": 0
+                                        },
+                                        {
+                                            "name": "start",
+                                            "type": "%Library.String",
+                                            "optional": 0
+                                        }
+                                    ]
+                                },
+                                {
+                                    "type": "function",
+                                    "value": "Exists",
+                                    "description": "Test if the key specified by <var>value</var> is defined within the lookup table specified by <var>table</var>.<br/>\r\nReturn true (1) if it is defined, and false (0) otherwise.",
+                                    "parameters": [
+                                        {
+                                            "name": "table",
+                                            "type": "%Library.String",
+                                            "default": "\"\"",
+                                            "optional": 1
+                                        },
+                                        {
+                                            "name": "value",
+                                            "type": "%Library.String",
+                                            "default": "\"\"",
+                                            "optional": 1
+                                        }
+                                    ]
+                                },
+                                {
+                                    "type": "function",
+                                    "value": "GetHashCode",
+                                    "description": "",
+                                    "parameters": [
+                                        {
+                                            "name": "identifier",
+                                            "type": "%Library.String",
+                                            "optional": 0
+                                        }
+                                    ]
+                                },
+                                {
+                                    "type": "function",
+                                    "value": "If",
+                                    "description": "If <var>value</var> is true, returns the value of <var>true</var>\r\notherwise returns the value of <var>false</var>.",
+                                    "parameters": [
+                                        {
+                                            "name": "value",
+                                            "type": "%Library.String",
+                                            "default": "\"\"",
+                                            "optional": 1
+                                        },
+                                        {
+                                            "name": "true",
+                                            "type": "%Library.String",
+                                            "default": "\"\"",
+                                            "optional": 1
+                                        },
+                                        {
+                                            "name": "false",
+                                            "type": "%Library.String",
+                                            "default": "\"\"",
+                                            "optional": 1
+                                        }
+                                    ]
+                                },
+                                {
+                                    "type": "function",
+                                    "value": "In",
+                                    "description": "Tests if the given <var>value</var> is among the <var>items</var> in a comma-delimited string.",
+                                    "parameters": [
+                                        {
+                                            "name": "value",
+                                            "type": "%Library.String",
+                                            "optional": 0
+                                        },
+                                        {
+                                            "name": "items",
+                                            "type": "%Library.String",
+                                            "optional": 0
+                                        }
+                                    ]
+                                },
+                                {
+                                    "type": "function",
+                                    "value": "InFile",
+                                    "description": "Tests if the given <var>value</var> is in the specified column in a table-formatted text file. <br/>\r\nThe <var>filenameSpec</var> argument consists of the filename followed by a comma and then a comma-separated list of additional parameters: <ol>\r\n\t<li>columnPos (default = 1) - means character pos if positional, column ordinal if delimited. </li>\r\n\t<li>rowSeparator (default = linefeed); negative value means row length if positional. </li>\r\n\t<li>columnSeparator (default = tab) - zero value means positional columns. </li>\r\n\t<li>columnWidth (default =0 meaning delimited not fixed-width) - means char count if positional. </li>\r\n\t<li>lineComment (default = none)</li>\r\n\t<li>stripPadChars (default = space,tab)</li></ol>",
+                                    "parameters": [
+                                        {
+                                            "name": "value",
+                                            "type": "%Library.String",
+                                            "optional": 0
+                                        },
+                                        {
+                                            "name": "filenameSpec",
+                                            "type": "%Library.String",
+                                            "optional": 0
+                                        }
+                                    ]
+                                },
+                                {
+                                    "type": "function",
+                                    "value": "InFileColumn",
+                                    "description": "Tests if the given <var>value</var> is in the column specified by <var>columnId</var> in a table-formatted text \r\nfile specified by <var>filename</var>. <br/>\r\n<var>rowSeparator</var> indicates what character sequence separates the rows in the file, but if the value is negative,\r\nthe value indicates the character length of each row. <br/>\r\n<var>columnSeparator</var> indicates the character sequence used to separate columns. If the value of this argument is 0, \r\nthen the value in the file is determined by extracting <var>columnWidth</var> characters starting at the character \r\nposition <var>columnId</var>.",
+                                    "parameters": [
+                                        {
+                                            "name": "value",
+                                            "type": "%Library.String",
+                                            "default": "\"\"",
+                                            "optional": 1
+                                        },
+                                        {
+                                            "name": "filename",
+                                            "type": "%Library.String",
+                                            "default": "\"\"",
+                                            "optional": 1
+                                        },
+                                        {
+                                            "name": "columnId",
+                                            "type": "%Library.Integer",
+                                            "default": "1",
+                                            "optional": 1
+                                        },
+                                        {
+                                            "name": "rowSeparator",
+                                            "type": "%Library.String",
+                                            "default": "$C(10)",
+                                            "optional": 1
+                                        },
+                                        {
+                                            "name": "columnSeparator",
+                                            "type": "%Library.String",
+                                            "default": "$C(9)",
+                                            "optional": 1
+                                        },
+                                        {
+                                            "name": "columnWidth",
+                                            "type": "%Library.Integer",
+                                            "default": "0",
+                                            "optional": 1
+                                        },
+                                        {
+                                            "name": "lineComment",
+                                            "type": "%Library.String",
+                                            "default": "\"\"",
+                                            "optional": 1
+                                        },
+                                        {
+                                            "name": "stripPadChars",
+                                            "type": "%Library.String",
+                                            "default": "\" \"_$C(9)",
+                                            "optional": 1
+                                        }
+                                    ]
+                                }
+                            ]
+                        },
+                        "operands": {
+                            "type": "array",
+                            "items": {
+                                "$ref": "#/definitions/valueObject"
+                            }
+                        }
+                    }
+                },
+                {
+                    "type": "object",
+                    "properties": {
+                        "value": {
+                            "type": "string"
+                        }
+                    }
+                }
+            ]
+        },
+        "conditionObject": {
+            "type": "object",
+            "oneOf": [
+                {
+                    "properties": {
+                        "operator": {
+                            "type": "string",
+                            "enum": [
+                                {
+                                    "type": "operator",
+                                    "value": "&&"
+                                },
+                                {
+                                    "type": "operator",
+                                    "value": "||"
+                                }
+                            ]
+                        },
+                        "operands": {
+                            "type": "array",
+                            "items": {
+                                "$ref": "#/definitions/conditionObject"
+                            }
+                        }
+                    }
+                },
+                {
+                    "type": "object",
+                    "properties": {
+                        "value": {
+                            "type": "string"
+                        }
+                    }
+                }
+            ]
+        },
+        "condition": {
+            "type": "object",
+            "properties": {
+                "type": {
+                    "const": "condition"
+                },
+                "if": {
+                    "type": "object",
+                    "properties": {
+                        "value": {
+                            "type": "string"
+                        },
+                        "valueObject": {
+                            "$ref": "#/definitions/valueObject"
+                        },
+                        "conditionObject": {
+                            "$ref": "#/definitions/conditionObject"
+                        }
+                    }
+                },
+                "comments": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/comment"
+                    }
+                },
+                "then": {
+                    "type": "object",
+                    "properties": {
+                        "type": {
+                            "const": "then"
+                        },
+                        "actions": {
+                            "type": "array",
+                            "items": {
+                                "oneOf": [
+                                    {
+                                        "$ref": "#/definitions/assign"
+                                    },
+                                    {
+                                        "$ref": "#/definitions/comment"
+                                    },
+                                    {
+                                        "$ref": "#/definitions/debug"
+                                    },
+                                    {
+                                        "$ref": "#/definitions/return"
+                                    },
+                                    {
+                                        "$ref": "#/definitions/rule"
+                                    },
+                                    {
+                                        "$ref": "#/definitions/trace"
+                                    },
+                                    {
+                                        "$ref": "#/definitions/delegate"
+                                    },
+                                    {
+                                        "$ref": "#/definitions/delete"
+                                    },
+                                    {
+                                        "$ref": "#/definitions/send"
+                                    },
+                                    {
+                                        "$ref": "#/definitions/foreach"
+                                    }
+                                ]
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "else": {
+            "type": "object",
+            "properties": {
+                "type": {
+                    "const": "else"
+                },
+                "actions": {
+                    "type": "array",
+                    "items": {
+                        "oneOf": [
+                            {
+                                "$ref": "#/definitions/assign"
+                            },
+                            {
+                                "$ref": "#/definitions/comment"
+                            },
+                            {
+                                "$ref": "#/definitions/debug"
+                            },
+                            {
+                                "$ref": "#/definitions/return"
+                            },
+                            {
+                                "$ref": "#/definitions/rule"
+                            },
+                            {
+                                "$ref": "#/definitions/trace"
+                            },
+                            {
+                                "$ref": "#/definitions/delegate"
+                            },
+                            {
+                                "$ref": "#/definitions/delete"
+                            },
+                            {
+                                "$ref": "#/definitions/send"
+                            },
+                            {
+                                "$ref": "#/definitions/foreach"
+                            }
+                        ]
+                    }
+                }
+            }
+        },
+        "ruleSet": {
+            "type": "object",
+            "properties": {
+                "type": {
+                    "const": "ruleSet"
+                },
+                "name": {
+                    "type": "string"
+                },
+                "effectiveBegin": {
+                    "type": "string"
+                },
+                "effectiveEnd": {
+                    "type": "string"
+                },
+                "actions": {
+                    "type": "array",
+                    "items": {
+                        "oneOf": [
+                            {
+                                "$ref": "#/definitions/assign"
+                            },
+                            {
+                                "$ref": "#/definitions/comment"
+                            },
+                            {
+                                "$ref": "#/definitions/debug"
+                            },
+                            {
+                                "$ref": "#/definitions/return"
+                            },
+                            {
+                                "$ref": "#/definitions/rule"
+                            },
+                            {
+                                "$ref": "#/definitions/trace"
+                            },
+                            {
+                                "$ref": "#/definitions/delegate"
+                            },
+                            {
+                                "$ref": "#/definitions/delete"
+                            },
+                            {
+                                "$ref": "#/definitions/send"
+                            }
+                        ]
+                    }
+                }
+            }
+        },
+        "foreachCondition": {
+            "type": "object",
+            "properties": {
+                "type": {
+                    "const": "condition"
+                },
+                "if": {
+                    "type": "object",
+                    "properties": {
+                        "value": {
+                            "type": "string"
+                        },
+                        "valueObject": {
+                            "$ref": "#/definitions/valueObject"
+                        },
+                        "conditionObject": {
+                            "$ref": "#/definitions/conditionObject"
+                        }
+                    }
+                },
+                "comments": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/comment"
+                    }
+                },
+                "then": {
+                    "type": "object",
+                    "properties": {
+                        "type": {
+                            "const": "then"
+                        },
+                        "actions": {
+                            "type": "array",
+                            "items": {
+                                "oneOf": [
+                                    {
+                                        "$ref": "#/definitions/assign"
+                                    },
+                                    {
+                                        "$ref": "#/definitions/comment"
+                                    },
+                                    {
+                                        "$ref": "#/definitions/debug"
+                                    },
+                                    {
+                                        "$ref": "#/definitions/return"
+                                    },
+                                    {
+                                        "$ref": "#/definitions/rule"
+                                    },
+                                    {
+                                        "$ref": "#/definitions/trace"
+                                    },
+                                    {
+                                        "$ref": "#/definitions/delegate"
+                                    },
+                                    {
+                                        "$ref": "#/definitions/delete"
+                                    },
+                                    {
+                                        "$ref": "#/definitions/send"
+                                    }
+                                ]
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+}

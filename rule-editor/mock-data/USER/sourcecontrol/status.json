@@ -1,0 +1,18 @@
+{
+    "status": {
+        "errors": [],
+        "summary": ""
+    },
+    "console": [],
+    "result": {
+        "content": [
+            {
+                "name": "RouterRule.TestRouterRules.TestRouterRules.CLS",
+                "inSourceControl": false,
+                "editable": true,
+                "isCheckedOut": true,
+                "checkedOutBy": ""
+            }
+        ]
+    }
+}

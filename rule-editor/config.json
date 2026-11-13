@@ -1,0 +1,8 @@
+{
+  "apiBase": "/api/interop-editors/v8",
+  "defaultNamespace": "USER",
+  "auth": {
+    "enabled": true,
+    "refreshCushion": 1000
+  }
+}

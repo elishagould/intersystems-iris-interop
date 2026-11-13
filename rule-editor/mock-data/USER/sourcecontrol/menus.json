@@ -1,0 +1,53 @@
+{
+    "status": {
+        "errors": [],
+        "summary": ""
+    },
+    "console": [],
+    "result": {
+        "content": [
+            {
+                "id": "%SourceMenu",
+                "name": "&Source Control",
+                "type": "main",
+                "items": [
+                    {
+                        "id": "%CheckOut",
+                        "enabled": 0,
+                        "name": "&Check Out",
+                        "save": 0,
+                        "separator": "0"
+                    },
+                    {
+                        "id": "%UndoCheckout",
+                        "enabled": 0,
+                        "name": "&Undo Check Out",
+                        "save": 0,
+                        "separator": "0"
+                    },
+                    {
+                        "id": "%CheckIn",
+                        "enabled": 0,
+                        "name": "Check &In",
+                        "save": 100,
+                        "separator": "0"
+                    },
+                    {
+                        "id": "%GetLatest",
+                        "enabled": 0,
+                        "name": "Get &Latest",
+                        "save": 0,
+                        "separator": "0"
+                    },
+                    {
+                        "id": "%AddToSourceControl",
+                        "enabled": 1,
+                        "name": "&Add To Source Control",
+                        "save": 100,
+                        "separator": "0"
+                    }
+                ]
+            }
+        ]
+    }
+}

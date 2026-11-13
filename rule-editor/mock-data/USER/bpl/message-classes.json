@@ -1,0 +1,40 @@
+{
+    "request": {
+        "persistentVDocs": [
+            "EnsLib.EDI.ASTM.Document",
+            "EnsLib.EDI.EDIFACT.Document",
+            "EnsLib.EDI.X12.Document",
+            "EnsLib.EDI.XML.Document",
+            "EnsLib.HL7.Message",
+            "EnsLib.ebXML.Message",
+            "EnsLib.ebXML.MessageWithPayload"
+        ],
+        "messages": [
+            "Ens.Request"
+        ],
+        "persistentClasses": [
+            "EnsLib.HL7.SM.RuntimeData.Configuration",
+            "EnsLib.HL7.SM.RuntimeData.Thread",
+            "HS.InteropTools.HL7.Compare.Message"
+        ]
+    },
+    "response": {
+        "persistentVDocs": [
+            "EnsLib.EDI.ASTM.Document",
+            "EnsLib.EDI.EDIFACT.Document",
+            "EnsLib.EDI.X12.Document",
+            "EnsLib.EDI.XML.Document",
+            "EnsLib.HL7.Message",
+            "EnsLib.ebXML.Message",
+            "EnsLib.ebXML.MessageWithPayload"
+        ],
+        "messages": [
+            "Ens.Response"
+        ],
+        "persistentClasses": [
+            "EnsLib.HL7.SM.RuntimeData.Outbound",
+            "EnsLib.HL7.SM.RuntimeData.WaitingSequenceNumbers",
+            "HS.InteropTools.HL7.Compare.Segment"
+        ]
+    }
+}
