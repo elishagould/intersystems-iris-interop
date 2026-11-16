@@ -4,6 +4,23 @@ Alternative browser UI tools for InterSystems IRIS. The current tool is the
 Rule Editor in [rule-editor](rule-editor/README.md), with reusable browser
 authentication in [iris-auth](iris-auth/README.md).
 
+## Screenshots
+
+These screenshots show the local mock preview with sample HL7 rule data; they
+do not show a live production namespace.
+
+![Rule editor overview](rule-editor/screenshots/01-rule-editor.png)
+
+*Editor, environment and user identity, rule selector, and command bars.*
+
+![Business rule selector](rule-editor/screenshots/02-rule-selector.png)
+
+*Searchable dropdown for the available sample rules.*
+
+![Send action fields](rule-editor/screenshots/03-send-fields.png)
+
+*A selected send action with Transform displayed before Target.*
+
 ## VS Code
 
 Open this repository's root folder in VS Code. Install Node.js 22 LTS or newer
@@ -33,10 +50,9 @@ Use **Run and Debug** to select a configuration, then press F5:
 | Tests: Current File | Debug the active `rule-editor/tests/*.test.mjs` file |
 | Attach: Node Inspector | Attach to a process started with `node --inspect` on port 9229 |
 
-Preview configurations launch Edge at the server's actual port, even when 5173
-is occupied. Browser breakpoints map to editor sources. To use Chrome instead,
-change `debugWithEdge` to `debugWithChrome` and `msedge` to `chrome` in
-[.vscode/launch.json](.vscode/launch.json). Stop debugging to stop the preview.
+Preview configurations open the system default browser at the server's actual
+port, even when 5173 is occupied. They debug the local Node server but do not
+attach VS Code's debugger to the browser. Stop debugging to stop the preview.
 Live preview is static hosting, not an API proxy: use the existing API's
 same-origin deployment or configure appropriate CORS. Never add credentials to
 launch configurations or commit them to runtime configuration.
@@ -69,10 +85,29 @@ interop-editors API. The package keeps authentication enabled and requires an
 explicit `$NAMESPACE` URL parameter rather than shipping a preview fallback.
 Node.js is needed only for development/building, not on the IRIS server.
 
+## Dependencies
+
+Install the editor's dependencies from `rule-editor` with `npm ci`. The direct
+packages are listed in `rule-editor/package.json`; npm also installs their
+transitive dependencies, which support these packages and are not imported by
+the application directly.
+
+| Package | Dependency type | Why it is installed |
+| --- | --- | --- |
+| `@intersystems/iris-auth` | Runtime, local `../iris-auth` package | Provides IRIS session/token authentication, sign-in/out behavior, and its browser UI. The static build includes its browser modules and stylesheet. |
+| `chevrotain` | Runtime | Tokenizes and parses rule condition expressions for the condition editor. Its browser module is included in the static build. |
+| `lucide` | Runtime | Supplies the icons used by editor, save, and rule actions. Its browser icon bundle is included in the static build. |
+| `fflate` | Development | Creates the ZIP archive in `package.mjs` and reads archives in packaging tests. It is not included in the IRIS web assets. |
+
+The preview server and build scripts use Node.js built-in modules, so there is
+no separate web-server or bundler dependency. The runtime packages above are
+copied into the static build because the browser loads them directly; `fflate`
+is only needed on the development/CI machine that creates or tests the ZIP.
+
 ## GitHub Actions
 
 [The packaging workflow](.github/workflows/package-iris.yml) runs a clean install,
-tests, static build and package build on Windows and Linux for pushes and pull
+tests, static build and package build on Ubuntu for pushes and pull
 requests. It can also be started manually. Download `iris-interop-tools-zip`
 or `iris-interop-tools-ipm` from the workflow run's artifacts.
 

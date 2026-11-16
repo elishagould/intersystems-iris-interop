@@ -27,11 +27,15 @@ h1 span { color: #688377; font-size: 15px; margin-left: 4px; }
 .preview-current-rule > span { color: #66776e; font-size: 10px; }
 .preview-current-rule > strong { max-width: 38rem; overflow: hidden; color: #263d33; font-size: 14px; font-weight: 600; text-overflow: ellipsis; white-space: nowrap; }
 .preview-primary-actions { display: flex; flex: 0 1 auto; align-items: center; flex-wrap: wrap; gap: 8px; min-width: 0; }
-.business-rules-control { display: flex; align-items: center; min-width: 0; max-width: 100%; font-size: 12px; color: #53695e; }
-.business-rules-control > span { flex: 0 0 auto; }
-.business-rules-control input { flex: 1 1 auto; width: clamp(14rem, 24vw, 26rem); max-width: 100%; min-width: 0; padding: 7px 10px; font: 13px "Trebuchet MS", sans-serif; color: #263d33; background: white; border: 1px solid #bac9c0; border-radius: 4px; }
-.business-rules-control input:focus { outline: 2px solid var(--accent); outline-offset: -1px; }
-.business-rules-control input[aria-invalid="true"] { border-color: var(--re-invalid-color); }
+.business-rule-picker { position: relative; flex: 1 1 auto; width: clamp(14rem, 24vw, 26rem); min-width: 0; }
+.business-rule-picker > input { display: block; width: 100%; min-width: 0; padding: 7px 10px; border: 1px solid #bac9c0; border-radius: 4px; background: white; color: #263d33; font: 13px "Trebuchet MS", sans-serif; }
+.business-rule-picker > input:focus { outline: 2px solid var(--accent); outline-offset: -1px; }
+.business-rule-picker > input[aria-invalid="true"] { border-color: var(--re-invalid-color); }
+.business-rule-options { position: absolute; z-index: 20; top: calc(100% + 4px); left: 0; width: 100%; max-height: min(50vh, 320px); overflow: auto; padding: 4px; border: 1px solid #bac9c0; border-radius: 4px; background: white; box-shadow: 0 5px 14px #203b2826; }
+.business-rule-options[hidden] { display: none; }
+.business-rule-option { display: block; width: 100%; padding: 8px 10px; border: 0; border-radius: 2px; background: white; color: #263d33; font: 13px "Trebuchet MS", sans-serif; text-align: left; overflow-wrap: anywhere; cursor: pointer; }
+.business-rule-option:hover, .business-rule-option[aria-selected="true"] { background: #e4ede7; }
+.business-rule-empty { padding: 8px 10px; color: #66776e; font-size: 12px; }
 #save-actions { display: flex; align-items: center; }
 .editor-save-commands { display: flex; align-items: center; gap: 8px; }
 select { max-width: 100%; width: 33rem; min-width: 0; padding: 7px 28px 7px 10px; font: 13px "Trebuchet MS", sans-serif; color: #263d33; background: white; border: 1px solid #bac9c0; border-radius: 4px; }
@@ -44,7 +48,7 @@ h2 { font-size: 13px; font-weight: 700; margin: 0 0 18px; color: #607367; }
   .preview-identity { justify-content: flex-start; gap: 12px 20px; }
   .preview-current-rule { flex-basis: 100%; }
   .preview-primary-actions { flex: 1 1 100%; }
-  .business-rules-control { flex: 1 1 16rem; }
+  .business-rule-picker { flex: 1 1 16rem; }
   select { width: 100%; }
 }
 @media (max-width: 480px) {
@@ -54,7 +58,6 @@ h2 { font-size: 13px; font-weight: 700; margin: 0 0 18px; color: #607367; }
   .preview-commandbar { padding: 8px 16px; }
   .preview-current-rule { flex-basis: 100%; }
   .preview-primary-actions { align-items: flex-start; }
-  .business-rules-control { flex: 1 1 100%; }
-  .business-rules-control input { width: 100%; }
+  .business-rule-picker { flex: 1 1 100%; width: 100%; }
   #save-actions { flex: 1 1 100%; }
 }

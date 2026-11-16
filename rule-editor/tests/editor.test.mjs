@@ -160,15 +160,15 @@ test("new send objects immediately expose editable transform and target blocks, 
   const path = state.selection.path;
   const fields = () => projectEditorTree(state.definition, schema)[0].children.at(-1).fields;
   assert.deepEqual(state.selectedObject, { type: "send", target: "", transform: "" });
-  assert.deepEqual(fields(), [{ name: "target", values: [""] }, { name: "transform", values: [""] }]);
+  assert.deepEqual(fields(), [{ name: "transform", values: [""] }, { name: "target", values: [""] }]);
   state.select(path, "transform");
   assert.equal(state.selectedValue.editable, true);
   state.setValue("Transform.Example");
   state.select(path, "target");
   state.setValue("Outbound");
-  assert.deepEqual(fields(), [{ name: "target", values: ["Outbound"] }, { name: "transform", values: ["Transform.Example"] }]);
+  assert.deepEqual(fields(), [{ name: "transform", values: ["Transform.Example"] }, { name: "target", values: ["Outbound"] }]);
   state.setValue("");
-  assert.deepEqual(fields()[0], { name: "target", values: [""] });
+  assert.deepEqual(fields()[1], { name: "target", values: [""] });
   state.undo();
   assert.equal(state.selectedObject.target, "Outbound");
   assert.equal(state.selectedObject.transform, "Transform.Example");
@@ -220,7 +220,7 @@ test("new rules expose name and constraint blocks while preserving disabled stat
 const actionFields = {
   assign: ["property", "value"], comment: ["text"], debug: ["value"], return: [],
   rule: ["name", "disabled", "constraint"], trace: ["value"], delegate: ["ruleName"],
-  delete: [], send: ["target", "transform"]
+  delete: [], send: ["transform", "target"]
 };
 
 for (const [type, names] of Object.entries(actionFields)) {

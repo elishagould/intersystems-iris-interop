@@ -125,8 +125,17 @@ function fieldValues(value) {
 }
 
 export function assistantBlockFields(assistant, definition, object) {
-  return describeFields(assistant, definition, object)
+  const fields = describeFields(assistant, definition, object)
     .map(field => ({ name: field.name, values: fieldValues(valueAt(object, field.path)), ...(field.format ? { format: field.format } : {}) }));
+    // Reorder "transform" and "target" fields so that it matches the original order in the UI
+  if (object?.type === "send") {
+    const transformIndex = fields.findIndex(field => field.name === "transform");
+    const targetIndex = fields.findIndex(field => field.name === "target");
+    if (transformIndex >= 0 && targetIndex >= 0 && targetIndex < transformIndex) {
+      fields.splice(targetIndex, 0, fields.splice(transformIndex, 1)[0]);
+    }
+  }
+  return fields;
 }
 
 export function projectAssistantTree(data, assistant) {

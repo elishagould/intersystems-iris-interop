@@ -10,7 +10,8 @@ import { createLoginController } from "./node_modules/@intersystems/iris-auth/lo
 
 const preview = document.querySelector("#preview");
 const businessRuleInput = document.querySelector("#business-rule");
-const businessRuleNames = document.querySelector("#business-rule-names");
+const businessRulePicker = document.querySelector("#business-rule-picker");
+const businessRuleOptions = document.querySelector("#business-rule-options");
 const status = document.querySelector("#status");
 const newRuleButton = document.querySelector("#new-business-rule");
 const openRuleButton = document.querySelector("#open-business-rule");
@@ -19,6 +20,8 @@ let mountedEditor;
 let request;
 let editorState;
 let ruleNames = [];
+let visibleRuleNames = [];
+let activeRuleOption = -1;
 let openedRuleName;
 let pendingRuleName;
 let api;
@@ -67,10 +70,6 @@ function installSavedRule(resources, output) {
   businessRuleInput.removeAttribute("aria-invalid");
   if (!ruleNames.includes(openedRuleName)) {
     ruleNames.push(openedRuleName);
-    const option = document.createElement("option");
-    option.value = openedRuleName;
-    option.textContent = openedRuleName;
-    businessRuleNames.append(option);
   }
   const url = new URL(window.location.href);
   url.searchParams.set("rule", openedRuleName);
@@ -88,6 +87,56 @@ async function createBusinessRule(details, signal) {
   return persistBusinessRule(createRuleExport(definition, { name: details.name, mode: "new" }), signal);
 }
 
+function closeBusinessRuleOptions() {
+  businessRuleOptions.hidden = true;
+  businessRuleInput.setAttribute("aria-expanded", "false");
+  businessRuleInput.removeAttribute("aria-activedescendant");
+  activeRuleOption = -1;
+}
+
+function setActiveRuleOption(index) {
+  const options = businessRuleOptions.querySelectorAll('[role="option"]');
+  if (!options.length) return;
+  activeRuleOption = (index + options.length) % options.length;
+  options.forEach((option, optionIndex) => option.setAttribute("aria-selected", String(optionIndex === activeRuleOption)));
+  const active = options[activeRuleOption];
+  businessRuleInput.setAttribute("aria-activedescendant", active.id);
+  active.scrollIntoView({ block: "nearest" });
+}
+
+function showBusinessRuleOptions(query = "") {
+  const normalizedQuery = query.trim().toLocaleLowerCase();
+  visibleRuleNames = ruleNames.filter(name => !normalizedQuery || name.toLocaleLowerCase().includes(normalizedQuery));
+  businessRuleOptions.replaceChildren();
+  activeRuleOption = -1;
+  businessRuleInput.removeAttribute("aria-activedescendant");
+  if (!visibleRuleNames.length) {
+    const empty = document.createElement("div");
+    empty.className = "business-rule-empty";
+    empty.textContent = "No matching rules";
+    businessRuleOptions.append(empty);
+  } else {
+    visibleRuleNames.forEach((name, index) => {
+      const option = document.createElement("button");
+      option.type = "button";
+      option.id = `business-rule-option-${index}`;
+      option.className = "business-rule-option";
+      option.setAttribute("role", "option");
+      option.setAttribute("aria-selected", "false");
+      option.textContent = name;
+      option.addEventListener("pointerdown", event => event.preventDefault());
+      option.addEventListener("click", () => {
+        businessRuleInput.value = name;
+        closeBusinessRuleOptions();
+        loadBusinessRule();
+      });
+      businessRuleOptions.append(option);
+    });
+  }
+  businessRuleOptions.hidden = false;
+  businessRuleInput.setAttribute("aria-expanded", "true");
+}
+
 async function loadBusinessRule() {
   const name = resolveBusinessRuleName(businessRuleInput.value, ruleNames);
   if (!name) {
@@ -97,6 +146,7 @@ async function loadBusinessRule() {
   }
   businessRuleInput.setCustomValidity("");
   businessRuleInput.removeAttribute("aria-invalid");
+  closeBusinessRuleOptions();
   businessRuleInput.value = name;
   if (pendingRuleName === name) return;
   if (openedRuleName === name && editorState) {
@@ -200,15 +250,12 @@ try {
   openRuleButton.disabled = !names.length;
   openRuleButton.addEventListener("click", () => { loadBusinessRule(); businessRuleInput.reportValidity(); });
   ruleNames = names;
-  for (const name of names) {
-    const option = document.createElement("option");
-    option.value = name;
-    option.textContent = name;
-    businessRuleNames.append(option);
-  }
   businessRuleInput.disabled = false;
   businessRuleInput.value = apiConfig.rule ?? names[0] ?? "";
-  businessRuleInput.addEventListener("change", loadBusinessRule);
+  businessRuleInput.addEventListener("focus", () => showBusinessRuleOptions());
+  businessRuleInput.addEventListener("click", () => {
+    if (businessRuleOptions.hidden) showBusinessRuleOptions();
+  });
   businessRuleInput.addEventListener("input", () => {
     if (pendingRuleName) {
       request?.abort();
@@ -218,13 +265,34 @@ try {
     }
     businessRuleInput.setCustomValidity("");
     businessRuleInput.removeAttribute("aria-invalid");
+    showBusinessRuleOptions(businessRuleInput.value);
   });
   businessRuleInput.addEventListener("keydown", event => {
-    if (event.key === "Enter") {
+    if (event.key === "ArrowDown" || event.key === "ArrowUp") {
       event.preventDefault();
+      if (businessRuleOptions.hidden) showBusinessRuleOptions();
+      const direction = event.key === "ArrowDown" ? 1 : -1;
+      const next = activeRuleOption < 0 ? (direction > 0 ? 0 : visibleRuleNames.length - 1) : activeRuleOption + direction;
+      setActiveRuleOption(next);
+    } else if (event.key === "Escape") {
+      closeBusinessRuleOptions();
+    } else if (event.key === "Enter") {
+      event.preventDefault();
+      if (!businessRuleOptions.hidden && activeRuleOption >= 0) {
+        businessRuleInput.value = visibleRuleNames[activeRuleOption];
+      }
+      closeBusinessRuleOptions();
       loadBusinessRule();
       businessRuleInput.reportValidity();
     }
+  });
+  businessRulePicker.addEventListener("focusout", () => {
+    queueMicrotask(() => {
+      if (!businessRulePicker.contains(document.activeElement)) closeBusinessRuleOptions();
+    });
+  });
+  document.addEventListener("pointerdown", event => {
+    if (!businessRulePicker.contains(event.target)) closeBusinessRuleOptions();
   });
   if (apiConfig.rule && !resolveBusinessRuleName(apiConfig.rule, names)) {
     status.textContent = `Unknown business rule: ${apiConfig.rule}`;

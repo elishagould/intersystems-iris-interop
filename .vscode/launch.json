@@ -11,9 +11,7 @@
       "serverReadyAction": {
         "pattern": "Rule Editor V2: (http://127\\.0\\.0\\.1:[0-9]+/\\S*)",
         "uriFormat": "%s",
-        "action": "debugWithEdge",
-        "webRoot": "${workspaceFolder}/rule-editor",
-        "killOnServerStop": true
+        "action": "openExternally"
       }
     },
     {
@@ -27,9 +25,7 @@
       "serverReadyAction": {
         "pattern": "Rule Editor V2: (http://127\\.0\\.0\\.1:[0-9]+/\\S*)",
         "uriFormat": "%s",
-        "action": "debugWithEdge",
-        "webRoot": "${workspaceFolder}/rule-editor",
-        "killOnServerStop": true
+        "action": "openExternally"
       }
     },
     {

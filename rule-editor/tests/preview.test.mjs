@@ -18,7 +18,9 @@ test("serves the standalone page, modules and mock fixtures without IRIS", async
   assert.match(markup, /id="open-business-rule"/);
   assert.match(markup, /id="save-actions"/);
   assert.doesNotMatch(markup, /name="view"|>Blocks<|>Rule Tree</);
-  assert.match(markup, /<input[^>]+list="business-rule-names"/);
+  assert.match(markup, /role="combobox"[^>]+aria-controls="business-rule-options"/);
+  assert.match(markup, /id="business-rule-options"[^>]+role="listbox"/);
+  assert.doesNotMatch(markup, /<datalist|business-rule-names/);
   assert.doesNotMatch(markup, /Rule fixture|fixture-control/);
   const app = await (await fetch(`${base}/app.js`)).text();
   assert.doesNotMatch(app, /showBlocks|renderRuleTree|availableBlockTypes|name="view"/);

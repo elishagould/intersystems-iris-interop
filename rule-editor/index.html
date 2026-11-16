@@ -22,11 +22,11 @@
     <div class="preview-current-rule"><span>Rule</span><strong id="current-rule-name">No rule selected</strong></div>
     <div class="preview-primary-actions">
       <button id="new-business-rule" class="editor-new-command" type="button" disabled>New</button>
-      <label class="business-rules-control">
-        <span class="visually-hidden">Business rule</span>
-        <input id="business-rule" list="business-rule-names" disabled aria-label="Business rule" placeholder="Select a business rule" autocomplete="off" spellcheck="false">
-      </label>
-      <datalist id="business-rule-names"></datalist>
+      <div id="business-rule-picker" class="business-rule-picker">
+        <label class="visually-hidden" for="business-rule">Business rule</label>
+        <input id="business-rule" role="combobox" aria-autocomplete="list" aria-haspopup="listbox" aria-controls="business-rule-options" aria-expanded="false" disabled placeholder="Select a business rule" autocomplete="off" spellcheck="false">
+        <div id="business-rule-options" class="business-rule-options" role="listbox" aria-label="Business rule suggestions" hidden></div>
+      </div>
       <button id="open-business-rule" class="editor-new-command" type="button" disabled>Open</button>
       <div id="save-actions" aria-label="Save commands"></div>
     </div>
